@@ -1,0 +1,1651 @@
+fileFormatVersion: 2
+guid: ba7a7c6960bc9426e96f6d15709c30fd
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3619115681986802256
+    second: instorment_and_more_0
+  - first:
+      213: 4270800980911091711
+    second: instorment_and_more_1
+  - first:
+      213: -4432074144484743220
+    second: instorment_and_more_2
+  - first:
+      213: 3515992624704638771
+    second: instorment_and_more_3
+  - first:
+      213: 4838208737527887675
+    second: instorment_and_more_4
+  - first:
+      213: -6653309321836550157
+    second: instorment_and_more_5
+  - first:
+      213: -1570549237450173816
+    second: instorment_and_more_6
+  - first:
+      213: -7609653834642402397
+    second: instorment_and_more_7
+  - first:
+      213: 7601247957418485435
+    second: instorment_and_more_8
+  - first:
+      213: -3206636832888848533
+    second: instorment_and_more_9
+  - first:
+      213: -2000244054032189389
+    second: instorment_and_more_10
+  - first:
+      213: -4420025840860439576
+    second: instorment_and_more_11
+  - first:
+      213: -969279322850668389
+    second: instorment_and_more_12
+  - first:
+      213: -867592697502674339
+    second: instorment_and_more_13
+  - first:
+      213: -6379068566595645265
+    second: instorment_and_more_14
+  - first:
+      213: -6813305804274327931
+    second: instorment_and_more_15
+  - first:
+      213: 4949370209219206470
+    second: instorment_and_more_16
+  - first:
+      213: 2367796322346733199
+    second: instorment_and_more_17
+  - first:
+      213: 7160922591390112540
+    second: instorment_and_more_18
+  - first:
+      213: 1411231815815710336
+    second: instorment_and_more_19
+  - first:
+      213: 3680819010124469680
+    second: instorment_and_more_20
+  - first:
+      213: 7969389196760964567
+    second: instorment_and_more_21
+  - first:
+      213: 2710036203035603772
+    second: instorment_and_more_22
+  - first:
+      213: 851135484831994736
+    second: instorment_and_more_23
+  - first:
+      213: 1434211841633063385
+    second: instorment_and_more_24
+  - first:
+      213: 5823664896730108026
+    second: instorment_and_more_25
+  - first:
+      213: 4593918640166560705
+    second: instorment_and_more_26
+  - first:
+      213: -3511699871247673064
+    second: instorment_and_more_27
+  - first:
+      213: 3685521459133838034
+    second: instorment_and_more_28
+  - first:
+      213: 2069229115507030867
+    second: instorment_and_more_29
+  - first:
+      213: 5712654733313405168
+    second: instorment_and_more_30
+  - first:
+      213: 3351800047153069648
+    second: instorment_and_more_31
+  - first:
+      213: 1110246378243062323
+    second: instorment_and_more_32
+  - first:
+      213: 1010263221994796600
+    second: instorment_and_more_33
+  - first:
+      213: -4679757963677917249
+    second: instorment_and_more_34
+  - first:
+      213: -7167046563485133425
+    second: instorment_and_more_35
+  - first:
+      213: 8711136624997761721
+    second: instorment_and_more_36
+  - first:
+      213: 3885251682867363680
+    second: instorment_and_more_37
+  - first:
+      213: 5864433120289796194
+    second: instorment_and_more_38
+  - first:
+      213: 1618697565139369044
+    second: instorment_and_more_39
+  - first:
+      213: -7072910291429411220
+    second: instorment_and_more_40
+  - first:
+      213: -1065001519975977462
+    second: instorment_and_more_41
+  - first:
+      213: 239873910616911626
+    second: instorment_and_more_42
+  - first:
+      213: -7591684395513900830
+    second: instorment_and_more_43
+  - first:
+      213: -3485342548452949060
+    second: instorment_and_more_44
+  - first:
+      213: -4796387999539628346
+    second: instorment_and_more_45
+  - first:
+      213: -173013304747263496
+    second: instorment_and_more_46
+  - first:
+      213: -6599583226793316759
+    second: instorment_and_more_47
+  - first:
+      213: -7953557123556198785
+    second: instorment_and_more_48
+  - first:
+      213: 6802283567091013827
+    second: instorment_and_more_49
+  - first:
+      213: -9078604080759992138
+    second: instorment_and_more_50
+  - first:
+      213: -8971637998679147346
+    second: instorment_and_more_51
+  - first:
+      213: -2217519872411018972
+    second: instorment_and_more_52
+  - first:
+      213: 4210216551477750399
+    second: instorment_and_more_53
+  - first:
+      213: 8796043288516330111
+    second: instorment_and_more_54
+  - first:
+      213: 5750547986590377066
+    second: instorment_and_more_55
+  - first:
+      213: 7450331814977084224
+    second: instorment_and_more_56
+  - first:
+      213: -3802525098466155229
+    second: instorment_and_more_57
+  - first:
+      213: 6202439315708559987
+    second: instorment_and_more_58
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: instorment_and_more_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 246
+        width: 17
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0527ed1b98ea93230800000000000000
+      internalID: 3619115681986802256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_1
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 244
+        width: 19
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fff689d4ddee44b30800000000000000
+      internalID: 4270800980911091711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_2
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 246
+        width: 17
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc72bc73c0c1e72c0800000000000000
+      internalID: -4432074144484743220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_3
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 245
+        width: 19
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33fc964e9a05bc030800000000000000
+      internalID: 3515992624704638771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_4
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 243
+        width: 19
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b377a8d7635c42340800000000000000
+      internalID: 4838208737527887675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_5
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 244
+        width: 19
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f7232b2c62baa3a0800000000000000
+      internalID: -6653309321836550157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_6
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 224
+        width: 99
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88295872ac9443ae0800000000000000
+      internalID: -1570549237450173816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_7
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 224
+        width: 100
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a35372b724156690800000000000000
+      internalID: -7609653834642402397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_8
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 178
+        width: 17
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb6a79f7ebe0d7960800000000000000
+      internalID: 7601247957418485435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_9
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 177
+        width: 17
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6ff9fb3accbf73d0800000000000000
+      internalID: -3206636832888848533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_10
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 178
+        width: 17
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 338f25f61a4bd34e0800000000000000
+      internalID: -2000244054032189389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_11
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 178
+        width: 17
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8eb57718ae9e8a2c0800000000000000
+      internalID: -4420025840860439576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_12
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 178
+        width: 19
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b90da51679d6c82f0800000000000000
+      internalID: -969279322850668389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_13
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 179
+        width: 19
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5251afc901b5f3f0800000000000000
+      internalID: -867592697502674339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_14
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 144
+        width: 99
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa0d43abfeef877a0800000000000000
+      internalID: -6379068566595645265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_15
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 144
+        width: 100
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58e1f1e28764271a0800000000000000
+      internalID: -6813305804274327931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_16
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 129
+        width: 41
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64d596e7bf1bfa440800000000000000
+      internalID: 4949370209219206470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_17
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 127
+        width: 46
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8e04f5c53a1cd020800000000000000
+      internalID: 2367796322346733199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_18
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 128
+        width: 42
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1b90eb1825b06360800000000000000
+      internalID: 7160922591390112540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_19
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 113
+        width: 50
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 086cc650cd3b59310800000000000000
+      internalID: 1411231815815710336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_20
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 121
+        width: 54
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b559fc4365e41330800000000000000
+      internalID: 3680819010124469680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_21
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 113
+        width: 46
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ddd5c53045f89e60800000000000000
+      internalID: 7969389196760964567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_22
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 111
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c33b26a719bfb9520800000000000000
+      internalID: 2710036203035603772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_23
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 95
+        width: 17
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0731425c637dfcb00800000000000000
+      internalID: 851135484831994736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 48
+        width: 81
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d19239321857e310800000000000000
+      internalID: 1434211841633063385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_25
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 16
+        width: 66
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7092845e50d1d050800000000000000
+      internalID: 5823664896730108026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_26
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 113
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c36c22e9a0e0cf30800000000000000
+      internalID: 4593918640166560705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_27
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 95
+        width: 50
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8195f78a29fe34fc0800000000000000
+      internalID: -3511699871247673064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_28
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 98
+        width: 54
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d270c78d3a952330800000000000000
+      internalID: 3685521459133838034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_29
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 95
+        width: 44
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35b31b4dae067bc10800000000000000
+      internalID: 2069229115507030867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_30
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 95
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f07997863d674f40800000000000000
+      internalID: 5712654733313405168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_31
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 81
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05e32b0626cf38e20800000000000000
+      internalID: 3351800047153069648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_32
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 81
+        width: 18
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33a775cd233686f00800000000000000
+      internalID: 1110246378243062323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_33
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 88
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83634ac3c0d250e00800000000000000
+      internalID: 1010263221994796600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_34
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 80
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbf1c2c2de82e0fb0800000000000000
+      internalID: -4679757963677917249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_35
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 80
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f85d8c68f19898c90800000000000000
+      internalID: -7167046563485133425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_36
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 80
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b203ea5b9c24e870800000000000000
+      internalID: 8711136624997761721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_37
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 80
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06f3c4412df2be530800000000000000
+      internalID: 3885251682867363680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_38
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 80
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 260b8ef0ad6a26150800000000000000
+      internalID: 5864433120289796194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_39
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 80
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45cfbe8fbd4c67610800000000000000
+      internalID: 1618697565139369044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_40
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 63
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6635275099f7dd90800000000000000
+      internalID: -7072910291429411220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_41
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 81
+        width: 14
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0ea49c92ca5831f0800000000000000
+      internalID: -1065001519975977462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_42
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 47
+        width: 36
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0f64310d04345300800000000000000
+      internalID: 239873910616911626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_43
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 47
+        width: 36
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e09486c34be4a690800000000000000
+      internalID: -7591684395513900830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_44
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 47
+        width: 36
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb348e61b6391afc0800000000000000
+      internalID: -3485342548452949060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_45
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 63
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c67e7ad68ecf6db0800000000000000
+      internalID: -4796387999539628346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_46
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 63
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f97f15e055599df0800000000000000
+      internalID: -173013304747263496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_47
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 64
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96eab5575029964a0800000000000000
+      internalID: -6599583226793316759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_48
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 64
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f76b7a59fe94f9190800000000000000
+      internalID: -7953557123556198785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_49
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 64
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c8dfed3dd0966e50800000000000000
+      internalID: 6802283567091013827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_50
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 64
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b093e560b1520280800000000000000
+      internalID: -9078604080759992138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_51
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 64
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eac355326c65e7380800000000000000
+      internalID: -8971637998679147346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_52
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 64
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 429529acc69c931e0800000000000000
+      internalID: -2217519872411018972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_53
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 0
+        width: 34
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7a2d4a95a1bd6a30800000000000000
+      internalID: 4210216551477750399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_54
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 0
+        width: 30
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7289f874c2d11a70800000000000000
+      internalID: 8796043288516330111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_55
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 0
+        width: 85
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a64ae841dec0ecf40800000000000000
+      internalID: 5750547986590377066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_56
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 0
+        width: 36
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04b108aef45e46760800000000000000
+      internalID: 7450331814977084224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_57
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 0
+        width: 36
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 325ea60d197ba3bc0800000000000000
+      internalID: -3802525098466155229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: instorment_and_more_58
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 0
+        width: 36
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 372c9b912bd731650800000000000000
+      internalID: 6202439315708559987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      instorment_and_more_0: 3619115681986802256
+      instorment_and_more_1: 4270800980911091711
+      instorment_and_more_10: -2000244054032189389
+      instorment_and_more_11: -4420025840860439576
+      instorment_and_more_12: -969279322850668389
+      instorment_and_more_13: -867592697502674339
+      instorment_and_more_14: -6379068566595645265
+      instorment_and_more_15: -6813305804274327931
+      instorment_and_more_16: 4949370209219206470
+      instorment_and_more_17: 2367796322346733199
+      instorment_and_more_18: 7160922591390112540
+      instorment_and_more_19: 1411231815815710336
+      instorment_and_more_2: -4432074144484743220
+      instorment_and_more_20: 3680819010124469680
+      instorment_and_more_21: 7969389196760964567
+      instorment_and_more_22: 2710036203035603772
+      instorment_and_more_23: 851135484831994736
+      instorment_and_more_24: 1434211841633063385
+      instorment_and_more_25: 5823664896730108026
+      instorment_and_more_26: 4593918640166560705
+      instorment_and_more_27: -3511699871247673064
+      instorment_and_more_28: 3685521459133838034
+      instorment_and_more_29: 2069229115507030867
+      instorment_and_more_3: 3515992624704638771
+      instorment_and_more_30: 5712654733313405168
+      instorment_and_more_31: 3351800047153069648
+      instorment_and_more_32: 1110246378243062323
+      instorment_and_more_33: 1010263221994796600
+      instorment_and_more_34: -4679757963677917249
+      instorment_and_more_35: -7167046563485133425
+      instorment_and_more_36: 8711136624997761721
+      instorment_and_more_37: 3885251682867363680
+      instorment_and_more_38: 5864433120289796194
+      instorment_and_more_39: 1618697565139369044
+      instorment_and_more_4: 4838208737527887675
+      instorment_and_more_40: -7072910291429411220
+      instorment_and_more_41: -1065001519975977462
+      instorment_and_more_42: 239873910616911626
+      instorment_and_more_43: -7591684395513900830
+      instorment_and_more_44: -3485342548452949060
+      instorment_and_more_45: -4796387999539628346
+      instorment_and_more_46: -173013304747263496
+      instorment_and_more_47: -6599583226793316759
+      instorment_and_more_48: -7953557123556198785
+      instorment_and_more_49: 6802283567091013827
+      instorment_and_more_5: -6653309321836550157
+      instorment_and_more_50: -9078604080759992138
+      instorment_and_more_51: -8971637998679147346
+      instorment_and_more_52: -2217519872411018972
+      instorment_and_more_53: 4210216551477750399
+      instorment_and_more_54: 8796043288516330111
+      instorment_and_more_55: 5750547986590377066
+      instorment_and_more_56: 7450331814977084224
+      instorment_and_more_57: -3802525098466155229
+      instorment_and_more_58: 6202439315708559987
+      instorment_and_more_6: -1570549237450173816
+      instorment_and_more_7: -7609653834642402397
+      instorment_and_more_8: 7601247957418485435
+      instorment_and_more_9: -3206636832888848533
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
