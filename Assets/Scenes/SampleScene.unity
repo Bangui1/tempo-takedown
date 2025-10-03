@@ -59025,6 +59025,62 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4729049120045035450, guid: f47296858ebf642d68ef38eef6614056, type: 3}
   m_PrefabInstance: {fileID: 697792398}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1299023627
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1299023629}
+  - component: {fileID: 1299023628}
+  m_Layer: 0
+  m_Name: MazeSystemManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1299023628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299023627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7128f2286cf7403dbd6cf4a4fbab0dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simpleMazeGenerator: {fileID: 1835134660}
+  wallLineGenerator: {fileID: 0}
+  traditionalMazeGenerator: {fileID: 0}
+  pointSpawner: {fileID: 0}
+  simplePointSpawner: {fileID: 80605039}
+  improvedPointSpawner: {fileID: 0}
+  mazePointSpawner: {fileID: 0}
+  pathfinder: {fileID: 0}
+  mazePathfinder: {fileID: 0}
+  generateOnStart: 1
+  clearExistingOnRegenerate: 1
+  generationDelay: 0.5
+--- !u!4 &1299023629
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299023627}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.7764075, y: -6.4798765, z: -0.1832417}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1835134659
 GameObject:
   m_ObjectHideFlags: 0
@@ -59055,10 +59111,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallPrefab: {fileID: 2519633291823161780, guid: dca58cff8c5924710a7b90ec747ae980, type: 3}
-  gridWidth: 20
-  gridHeight: 20
+  gridWidth: 60
+  gridHeight: 40
   cellSize: 1
-  gridOffset: {x: 0, y: 0}
+  gridOffset: {x: -30, y: -20}
   structureCount: 20
   minLineLength: 3
   maxLineLength: 8
@@ -59071,6 +59127,9 @@ MonoBehaviour:
   cornerWeight: 0.15
   blockWeight: 0.15
   maxPlacementAttemptsPerStructure: 40
+  minStructureDistance: 2.5
+  snapToGrid: 1
+  gridSnapSize: 1
   wallLayerMask:
     serializedVersion: 2
     m_Bits: 0
@@ -59095,6 +59154,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1999597663
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1999597665}
+  - component: {fileID: 1999597664}
+  m_Layer: 0
+  m_Name: Pathfinder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1999597664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999597663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40e3eb3289bf349958e3d4dc2377f4c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathLinePrefab: {fileID: 0}
+  pathWidth: 0.2
+  pathColor: {r: 0, g: 1, b: 1, a: 1}
+  pathMaterial: {fileID: 0}
+  gridResolution: 0.25
+  wallLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  pathSmoothing: 0.3
+  maxPathfindingIterations: 1000
+  mazeGenerator: {fileID: 0}
+  wallGenerator: {fileID: 0}
+  traditionalMazeGenerator: {fileID: 0}
+  showDebugPath: 1
+  showGrid: 0
+  showWaypoints: 1
+  generateOnStart: 0
+--- !u!4 &1999597665
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999597663}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.6159277, y: -5.449766, z: -0.32167172}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2027505013
 GameObject:
   m_ObjectHideFlags: 0
@@ -59106,6 +59226,9 @@ GameObject:
   - component: {fileID: 2027505014}
   - component: {fileID: 2027505016}
   - component: {fileID: 2027505015}
+  - component: {fileID: 2027505019}
+  - component: {fileID: 2027505018}
+  - component: {fileID: 2027505017}
   m_Layer: 0
   m_Name: TheWall
   m_TagString: Untagged
@@ -61284,6 +61407,116 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!66 &2027505017
+CompositeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027505013}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_GeometryType: 0
+  m_GenerationType: 0
+  m_EdgeRadius: 0
+  m_ColliderPaths: []
+  m_CompositePaths:
+    m_Paths: []
+  m_VertexDistance: 0.0005
+  m_OffsetDistance: 0.00005
+  m_UseDelaunayMesh: 0
+  m_CompositeGameObject: {fileID: 2027505013}
+--- !u!50 &2027505018
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027505013}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!19719996 &2027505019
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027505013}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
+  m_UseDelaunayMesh: 0
 --- !u!1001 &1537295256233269177
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61394,3 +61627,5 @@ SceneRoots:
   - {fileID: 80605040}
   - {fileID: 1537295256233269177}
   - {fileID: 1835134661}
+  - {fileID: 1299023629}
+  - {fileID: 1999597665}

@@ -5,17 +5,23 @@ public class WallLineGenerator : MonoBehaviour
 {
     [Header("Wall Settings")]
     public GameObject wallPrefab;  // Your amp prefab
-    public int numberOfWallLines = 8;
-    public float minWallLength = 3f;
-    public float maxWallLength = 8f;
+    public int numberOfWallLines = 6;
+    public float minWallLength = 4f;
+    public float maxWallLength = 10f;
     public Vector2 spawnAreaMin = new Vector2(-8, -8);
     public Vector2 spawnAreaMax = new Vector2(8, 8);
+    
+    [Header("Spacing & Alignment")]
+    public float minWallDistance = 3f;
+    public bool snapToGrid = true;
+    public float gridSnapSize = 1.0f;
     
     [Header("Generation")]
     public bool generateOnStart = true;
     public bool clearExistingWalls = true;
     
     private List<GameObject> spawnedWalls = new List<GameObject>();
+    private List<Vector2> wallLineCenters = new List<Vector2>();
     
     void Start()
     {
@@ -45,42 +51,73 @@ public class WallLineGenerator : MonoBehaviour
     
     void CreateRandomWallLine()
     {
-        // Choose random direction (horizontal or vertical)
-        bool isHorizontal = Random.Range(0, 2) == 0;
+        int attempts = 0;
+        int maxAttempts = 30;
         
-        Vector2 startPos;
-        Vector2 direction;
-        float wallLength = Random.Range(minWallLength, maxWallLength);
-        
-        if (isHorizontal)
+        while (attempts++ < maxAttempts)
         {
-            // Horizontal wall
-            startPos = new Vector2(
-                Random.Range(spawnAreaMin.x, spawnAreaMax.x - wallLength),
-                Random.Range(spawnAreaMin.y, spawnAreaMax.y)
-            );
-            direction = Vector2.right;
-        }
-        else
-        {
-            // Vertical wall
-            startPos = new Vector2(
-                Random.Range(spawnAreaMin.x, spawnAreaMax.x),
-                Random.Range(spawnAreaMin.y, spawnAreaMax.y - wallLength)
-            );
-            direction = Vector2.up;
-        }
-        
-        // Create wall segments along the line
-        int segments = Mathf.RoundToInt(wallLength);
-        for (int i = 0; i < segments; i++)
-        {
-            Vector2 segmentPos = startPos + direction * i;
+            // Choose random direction (horizontal or vertical)
+            bool isHorizontal = Random.Range(0, 2) == 0;
             
-            // Check if position is clear
-            if (IsPositionClear(segmentPos))
+            Vector2 startPos;
+            Vector2 direction;
+            float wallLength = Random.Range(minWallLength, maxWallLength);
+            
+            if (isHorizontal)
             {
-                CreateWall(segmentPos);
+                // Horizontal wall
+                startPos = new Vector2(
+                    Random.Range(spawnAreaMin.x, spawnAreaMax.x - wallLength),
+                    Random.Range(spawnAreaMin.y, spawnAreaMax.y)
+                );
+                direction = Vector2.right;
+            }
+            else
+            {
+                // Vertical wall
+                startPos = new Vector2(
+                    Random.Range(spawnAreaMin.x, spawnAreaMax.x),
+                    Random.Range(spawnAreaMin.y, spawnAreaMax.y - wallLength)
+                );
+                direction = Vector2.up;
+            }
+            
+            // Snap to grid if enabled
+            if (snapToGrid)
+            {
+                startPos.x = Mathf.Round(startPos.x / gridSnapSize) * gridSnapSize;
+                startPos.y = Mathf.Round(startPos.y / gridSnapSize) * gridSnapSize;
+            }
+            
+            // Check if this wall line has minimum distance from others
+            Vector2 wallCenter = startPos + direction * (wallLength * 0.5f);
+            if (HasMinimumDistance(wallCenter))
+            {
+                // Create wall segments along the line
+                int segments = Mathf.RoundToInt(wallLength);
+                bool allPositionsClear = true;
+                
+                for (int i = 0; i < segments; i++)
+                {
+                    Vector2 segmentPos = startPos + direction * i;
+                    if (!IsPositionClear(segmentPos))
+                    {
+                        allPositionsClear = false;
+                        break;
+                    }
+                }
+                
+                if (allPositionsClear)
+                {
+                    // Create all wall segments
+                    for (int i = 0; i < segments; i++)
+                    {
+                        Vector2 segmentPos = startPos + direction * i;
+                        CreateWall(segmentPos);
+                    }
+                    wallLineCenters.Add(wallCenter);
+                    return; // Successfully placed wall line
+                }
             }
         }
     }
@@ -99,6 +136,19 @@ public class WallLineGenerator : MonoBehaviour
         return existingWall == null;
     }
     
+    bool HasMinimumDistance(Vector2 wallCenter)
+    {
+        foreach (Vector2 existingCenter in wallLineCenters)
+        {
+            float distance = Vector2.Distance(wallCenter, existingCenter);
+            if (distance < minWallDistance)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    
     void ClearExistingWalls()
     {
         foreach (GameObject wall in spawnedWalls)
@@ -109,6 +159,7 @@ public class WallLineGenerator : MonoBehaviour
             }
         }
         spawnedWalls.Clear();
+        wallLineCenters.Clear();
     }
     
     public void ClearWalls()

@@ -81,4 +81,25 @@ public class PointSpawner : MonoBehaviour
     {
         return spawnedPoints;
     }
+    
+    public void RespawnPoints()
+    {
+        // Clear existing points
+        foreach (GameObject point in spawnedPoints)
+        {
+            if (point != null)
+            {
+                DestroyImmediate(point);
+            }
+        }
+        
+        // Clear the array
+        for (int i = 0; i < spawnedPoints.Length; i++)
+        {
+            spawnedPoints[i] = null;
+        }
+        
+        // Respawn points
+        SpawnPoints();
+    }
 }

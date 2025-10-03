@@ -17,7 +17,7 @@ public class MazePointSpawner : MonoBehaviour
     {
         if (mazeGenerator == null)
         {
-            mazeGenerator = FindObjectOfType<MazeGenerator>();
+            mazeGenerator = FindFirstObjectByType<MazeGenerator>();
         }
         
         if (mazeGenerator != null)
