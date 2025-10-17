@@ -29,6 +29,17 @@ public class MazePathfinder : MonoBehaviour
     private List<GameObject> pathLines = new List<GameObject>();
     private List<Vector2> waypoints = new List<Vector2>();
     private List<Vector2> optimalPath = new List<Vector2>();
+    
+    // Public getter for the optimal path
+    public List<Vector2> GetOptimalPath()
+    {
+        return new List<Vector2>(optimalPath);
+    }
+    
+    public bool HasValidPath()
+    {
+        return optimalPath != null && optimalPath.Count > 1;
+    }
     private List<GameObject> debugWaypoints = new List<GameObject>();
     
     [Header("Lifecycle")]
