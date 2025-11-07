@@ -1,4 +1,7 @@
 using UnityEngine;
+using UnityEngine.AI;
+using Unity.AI.Navigation;
+using System.Collections;
 using System.Collections.Generic;
 
 public class MazeGenerator : MonoBehaviour
@@ -8,7 +11,7 @@ public class MazeGenerator : MonoBehaviour
     public int mazeWidth = 20;
     public int mazeHeight = 20;
     public float cellSize = 1.0f;
-    public Vector2 mazeOffset = Vector2.zero;
+    public Vector3 mazeOffset = Vector3.zero;
     
     [Header("Maze Generation")]
     public bool generateOnStart = true;
@@ -142,18 +145,48 @@ public class MazeGenerator : MonoBehaviour
     {
         for (int x = 0; x < mazeWidth; x++)
         {
-            for (int y = 0; y < mazeHeight; y++)
+            for (int z = 0; z < mazeHeight; z++)
             {
-                if (maze[x, y]) // If it's a wall
+                if (maze[x, z]) // If it's a wall
                 {
                     Vector3 position = new Vector3(
                         x * cellSize + mazeOffset.x,
-                        y * cellSize + mazeOffset.y,
-                        0
+                        0f, // Always at ground level for NavMesh
+                        z * cellSize + mazeOffset.z
                     );
                     
-                    GameObject wall = Instantiate(wallPrefab, position, Quaternion.identity);
-                    wall.name = $"Wall_{x}_{y}";
+                    GameObject wall = Instantiate(wallPrefab, position, Quaternion.Euler(90, 0, 0));
+                    wall.name = $"Wall_{x}_{z}";
+                    
+                    // Ensure wall has a collider for NavMesh
+                    Collider wallCollider = wall.GetComponent<Collider>();
+                    if (wallCollider == null)
+                    {
+                        BoxCollider box = wall.AddComponent<BoxCollider>();
+                        box.size = new Vector3(cellSize, 0.5f, cellSize);
+                    }
+                    
+                    // Mark wall to be excluded from NavMesh baking
+                    // Walls will block paths via NavMeshObstacle carving instead
+                    wall.layer = LayerMask.NameToLayer("Default");
+                    
+                    // Add NavMeshObstacle so wall blocks pathfinding
+                    NavMeshObstacle obstacle = wall.GetComponent<NavMeshObstacle>();
+                    if (obstacle == null)
+                    {
+                        obstacle = wall.AddComponent<NavMeshObstacle>();
+                    }
+                    obstacle.carving = true;
+                    obstacle.shape = NavMeshObstacleShape.Box;
+                    obstacle.size = new Vector3(cellSize, 0.5f, cellSize);
+                    obstacle.center = Vector3.zero;
+                    obstacle.enabled = true;
+                    
+                    // Verify obstacle is set up correctly
+                    if (!obstacle.carving)
+                    {
+                        Debug.LogWarning($"Wall {wall.name} NavMeshObstacle carving is disabled!");
+                    }
                     
                     // Add some variety to wall sprites
                     if (wallSprites != null && wallSprites.Length > 0)
@@ -174,6 +207,36 @@ public class MazeGenerator : MonoBehaviour
                 }
             }
         }
+        
+        // Rebake NavMesh after all walls are placed (wait a frame for obstacles to register)
+        StartCoroutine(RebakeNavMeshDelayed());
+    }
+    
+    System.Collections.IEnumerator RebakeNavMeshDelayed()
+    {
+        yield return new WaitForFixedUpdate();
+        yield return null; // Wait one more frame for obstacles to fully register
+        
+        // Verify obstacles are set up
+        int obstaclesWithCarving = 0;
+        foreach (GameObject wall in spawnedWalls)
+        {
+            if (wall != null)
+            {
+                NavMeshObstacle obs = wall.GetComponent<NavMeshObstacle>();
+                if (obs != null && obs.carving)
+                {
+                    obstaclesWithCarving++;
+                }
+            }
+        }
+        Debug.Log($"Found {obstaclesWithCarving} walls with NavMeshObstacle carving enabled");
+        
+        RebakeNavMesh();
+        
+        // Wait for NavMesh to update after rebake
+        yield return new WaitForFixedUpdate();
+        Debug.Log("NavMesh updated with obstacles");
     }
     
     void ClearExistingWalls()
@@ -199,34 +262,51 @@ public class MazeGenerator : MonoBehaviour
         GenerateMaze();
     }
     
+    public void RebakeNavMesh()
+    {
+        NavMeshSurface surface = FindFirstObjectByType<NavMeshSurface>();
+        if (surface != null)
+        {
+            Debug.Log($"Rebaking NavMesh with {spawnedWalls.Count} walls as NavMeshObstacles...");
+            Debug.Log("Note: Configure NavMeshSurface in Inspector to exclude wall layers from baking to avoid 'excessive tiles' error");
+            surface.BuildNavMesh();
+            Debug.Log("NavMesh rebaked after maze generation");
+        }
+        else
+        {
+            Debug.LogError("NavMeshSurface not found! Please add a NavMeshSurface component to a GameObject in your scene.");
+        }
+    }
+    
     // Method to check if a position is a wall
-    public bool IsWall(Vector2 worldPos)
+    public bool IsWall(Vector3 worldPos)
     {
         int x = Mathf.RoundToInt((worldPos.x - mazeOffset.x) / cellSize);
-        int y = Mathf.RoundToInt((worldPos.y - mazeOffset.y) / cellSize);
+        int z = Mathf.RoundToInt((worldPos.z - mazeOffset.z) / cellSize);
         
-        if (x >= 0 && x < mazeWidth && y >= 0 && y < mazeHeight)
+        if (x >= 0 && x < mazeWidth && z >= 0 && z < mazeHeight)
         {
-            return maze[x, y];
+            return maze[x, z];
         }
         
         return true; // Outside maze bounds is considered a wall
     }
     
     // Method to get a random empty position in the maze
-    public Vector2 GetRandomEmptyPosition()
+    public Vector3 GetRandomEmptyPosition()
     {
-        List<Vector2> emptyPositions = new List<Vector2>();
+        List<Vector3> emptyPositions = new List<Vector3>();
         
         for (int x = 0; x < mazeWidth; x++)
         {
-            for (int y = 0; y < mazeHeight; y++)
+            for (int z = 0; z < mazeHeight; z++)
             {
-                if (!maze[x, y]) // If it's not a wall
+                if (!maze[x, z]) // If it's not a wall
                 {
-                    Vector2 pos = new Vector2(
+                    Vector3 pos = new Vector3(
                         x * cellSize + mazeOffset.x,
-                        y * cellSize + mazeOffset.y
+                        0f, // Always at ground level for NavMesh
+                        z * cellSize + mazeOffset.z
                     );
                     emptyPositions.Add(pos);
                 }
@@ -238,6 +318,6 @@ public class MazeGenerator : MonoBehaviour
             return emptyPositions[Random.Range(0, emptyPositions.Count)];
         }
         
-        return Vector2.zero; // Fallback
+        return Vector3.zero; // Fallback
     }
 }

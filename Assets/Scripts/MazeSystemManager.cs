@@ -14,8 +14,7 @@ public class MazeSystemManager : MonoBehaviour
     public MazePointSpawner mazePointSpawner;
     
     [Header("Pathfinding")]
-    public Pathfinder pathfinder;
-    public MazePathfinder mazePathfinder;
+    public NavMeshPathfinder navMeshPathfinder;
     
     [Header("Settings")]
     public bool generateOnStart = true;
@@ -51,12 +50,10 @@ public class MazeSystemManager : MonoBehaviour
         if (mazePointSpawner == null)
             mazePointSpawner = FindFirstObjectByType<MazePointSpawner>();
         
-        if (pathfinder == null)
-            pathfinder = FindFirstObjectByType<Pathfinder>();
-        if (mazePathfinder == null)
-            mazePathfinder = FindFirstObjectByType<MazePathfinder>();
+        if (navMeshPathfinder == null)
+            navMeshPathfinder = FindFirstObjectByType<NavMeshPathfinder>();
             
-        Debug.Log($"Auto-found components: MazeGenerator={simpleMazeGenerator != null}, PointSpawner={simplePointSpawner != null}, Pathfinder={mazePathfinder != null || pathfinder != null}");
+        Debug.Log($"Auto-found components: MazeGenerator={simpleMazeGenerator != null}, PointSpawner={simplePointSpawner != null}, Pathfinder={navMeshPathfinder != null}");
     }
     
     public void GenerateCompleteMaze()
@@ -154,22 +151,15 @@ public class MazeSystemManager : MonoBehaviour
     {
         Debug.Log("Attempting to generate path...");
         
-        // Try different pathfinders in order of preference
-        if (mazePathfinder != null)
+        if (navMeshPathfinder != null)
         {
-            Debug.Log("Using MazePathfinder for path generation");
-            mazePathfinder.GeneratePath();
-            Debug.Log("Generated path using MazePathfinder");
-        }
-        else if (pathfinder != null)
-        {
-            Debug.Log("Using Pathfinder for path generation");
-            pathfinder.GeneratePath();
-            Debug.Log("Generated path using Pathfinder");
+            Debug.Log("Using NavMeshPathfinder for path generation");
+            navMeshPathfinder.GeneratePath();
+            Debug.Log("Generated path using NavMeshPathfinder");
         }
         else
         {
-            Debug.LogWarning("No pathfinder found! Please assign one in the inspector.");
+            Debug.LogWarning("No NavMeshPathfinder found! Please assign one in the inspector.");
         }
     }
     
@@ -187,10 +177,8 @@ public class MazeSystemManager : MonoBehaviour
         ClearAllPoints();
         
         // Clear path
-        if (mazePathfinder != null)
-            mazePathfinder.ClearPath();
-        if (pathfinder != null)
-            pathfinder.ClearPath();
+        if (navMeshPathfinder != null)
+            navMeshPathfinder.ClearPath();
     }
     
     public void RegenerateMaze()
@@ -200,10 +188,8 @@ public class MazeSystemManager : MonoBehaviour
     
     public void RegeneratePath()
     {
-        if (mazePathfinder != null)
-            mazePathfinder.RegeneratePath();
-        else if (pathfinder != null)
-            pathfinder.RegeneratePath();
+        if (navMeshPathfinder != null)
+            navMeshPathfinder.RegeneratePath();
     }
     
 }
