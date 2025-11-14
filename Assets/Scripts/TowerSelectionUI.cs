@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Linq;
 
 public class TowerSelectionUI : MonoBehaviour
 {
@@ -178,9 +179,10 @@ public class TowerSelectionUI : MonoBehaviour
                 float yOffset = 10 + (buttonSize.y + buttonSpacing) * i;
                 rt.anchoredPosition = new Vector2(10, -yOffset);
                 
-                // Add Image (button background)
+                // Add Image (button background) - this will be the clickable target
                 Image bgImg = buttonGO.AddComponent<Image>();
                 bgImg.color = normalColor;
+                bgImg.raycastTarget = true; // Make sure background is clickable
                 
                 // Try to get sprite from tower prefab
                 Sprite towerSprite = null;
@@ -208,12 +210,12 @@ public class TowerSelectionUI : MonoBehaviour
                     Image spriteImg = spriteGO.AddComponent<Image>();
                     spriteImg.sprite = towerSprite;
                     spriteImg.preserveAspect = true;
-                    spriteImg.raycastTarget = false; // Don't block button clicks
+                    spriteImg.raycastTarget = false; // Don't block button clicks - critical!
                 }
                 
-                // Add Button component
+                // Add Button component BEFORE adding text
                 Button btn = buttonGO.AddComponent<Button>();
-                btn.targetGraphic = bgImg;
+                btn.targetGraphic = bgImg; // Background image is the clickable target
                 
                 // Create colors for button states
                 ColorBlock colors = btn.colors;
@@ -236,7 +238,21 @@ public class TowerSelectionUI : MonoBehaviour
                 
                 Text text = textGO.AddComponent<Text>();
                 text.text = $"[{i + 1}]";
-                text.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+                // Try to get a valid font - use LegacyRuntime.ttf instead of deprecated Arial.ttf
+                Font defaultFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+                if (defaultFont == null)
+                {
+                    // Fallback: try to find any font in the project
+                    Font[] allFonts = Resources.FindObjectsOfTypeAll<Font>();
+                    if (allFonts != null && allFonts.Length > 0)
+                    {
+                        defaultFont = allFonts[0];
+                    }
+                }
+                if (defaultFont != null)
+                {
+                    text.font = defaultFont;
+                }
                 text.fontSize = 16;
                 text.alignment = TextAnchor.MiddleCenter;
                 text.color = textColor;
@@ -244,6 +260,7 @@ public class TowerSelectionUI : MonoBehaviour
                 text.resizeTextForBestFit = true;
                 text.resizeTextMinSize = 12;
                 text.resizeTextMaxSize = 18;
+                text.raycastTarget = false; // Don't block button clicks - critical!
                 
                 // Add shadow/outline for better visibility
                 Shadow shadow = textGO.AddComponent<Shadow>();
@@ -258,10 +275,45 @@ public class TowerSelectionUI : MonoBehaviour
                 button = buttonGO.AddComponent<Button>();
             }
             
+            // Make sure button has a target graphic
+            if (button.targetGraphic == null)
+            {
+                Image targetImg = buttonGO.GetComponent<Image>();
+                if (targetImg != null)
+                {
+                    button.targetGraphic = targetImg;
+                }
+            }
+            
+            // Ensure all child images/text don't block raycasts (except the background)
+            Image[] allImages = buttonGO.GetComponentsInChildren<Image>();
+            foreach (Image img in allImages)
+            {
+                if (img.gameObject == buttonGO)
+                {
+                    // Main button image - keep raycast enabled
+                    img.raycastTarget = true;
+                }
+                else
+                {
+                    // Child images (sprites) - disable raycast
+                    img.raycastTarget = false;
+                }
+            }
+            
+            Text[] allTexts = buttonGO.GetComponentsInChildren<Text>();
+            foreach (Text txt in allTexts)
+            {
+                txt.raycastTarget = false;
+            }
+            
             // Set up click listener
             int index = i; // Capture for closure
             button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(() => SelectTower(index));
+            button.onClick.AddListener(() => {
+                Debug.Log($"Button {index} clicked!");
+                SelectTower(index);
+            });
             
             towerButtons[i] = button;
         }
