@@ -166,9 +166,11 @@ public class MazeGenerator : MonoBehaviour
                         box.size = new Vector3(cellSize, 0.5f, cellSize);
                     }
                     
-                    // Mark wall to be excluded from NavMesh baking
-                    // Walls will block paths via NavMeshObstacle carving instead
-                    wall.layer = LayerMask.NameToLayer("Default");
+                    int wallLayer = wallPrefab.layer;
+                    if (wallLayer != 0)
+                    {
+                        wall.layer = wallLayer;
+                    }
                     
                     // Add NavMeshObstacle so wall blocks pathfinding
                     NavMeshObstacle obstacle = wall.GetComponent<NavMeshObstacle>();

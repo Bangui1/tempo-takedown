@@ -1,16 +1,13 @@
 using UnityEngine;
 using UnityEngine.AI;
-using Unity.AI.Navigation;
 using UnityEngine.EventSystems;
-using System.Collections;
-using System.Collections.Generic;
 
 public class TowerPlacementManager : MonoBehaviour
 {
     [Header("References")]
     public MazeGenerator mazeGenerator;
+    public SimpleMazeGenerator simpleMazeGenerator;
     public NavMeshPathfinder pathfinder;
-    public NavMeshSurface navMeshSurface;
 
     [Header("Towers")]
     public GameObject[] towerPrefabs;
@@ -21,34 +18,85 @@ public class TowerPlacementManager : MonoBehaviour
     [Header("Preview")]
     public Color validColor = new Color(0f, 1f, 0f, 0.6f);
     public Color invalidColor = new Color(1f, 0f, 0f, 0.6f);
-    public LayerMask placementBlockMask = ~0; // layers that block placement (amps/walls/towers)
-    public float placementRadiusMultiplier = 0.45f; // portion of cell size used for collision test
-    public bool placementModeActive = true; // Can be toggled to disable placement
+    public LayerMask placementBlockMask;
+    public float placementRadiusMultiplier = 0.45f;
+    public bool placementModeActive = true;
+    public string[] layersToIgnore = new string[] { "Default", "Ground", "Ignore Raycast", "UI", "Water" };
 
     private GameObject previewInstance;
 
     void Start()
     {
         if (mazeGenerator == null) mazeGenerator = FindFirstObjectByType<MazeGenerator>();
+        if (simpleMazeGenerator == null) simpleMazeGenerator = FindFirstObjectByType<SimpleMazeGenerator>();
         if (pathfinder == null) pathfinder = FindFirstObjectByType<NavMeshPathfinder>();
-        if (navMeshSurface == null) navMeshSurface = FindFirstObjectByType<NavMeshSurface>();
 
-        // Resolve tower layer by name if not set
         if (towerLayer == 0 && !string.IsNullOrEmpty(towerLayerName))
         {
             int resolved = LayerMask.NameToLayer(towerLayerName);
             if (resolved != -1) towerLayer = resolved;
-            else Debug.LogWarning($"TowerPlacementManager: Layer '{towerLayerName}' not found. Set it in Project Settings > Tags and Layers.");
         }
 
-        // Fallback: if still not set, mirror the maze wall layer so towers count as obstacles
-        if (towerLayer == 0 && mazeGenerator != null && mazeGenerator.wallPrefab != null)
+        GameObject wallPrefab = GetWallPrefab();
+        if (towerLayer == 0 && wallPrefab != null)
         {
-            towerLayer = mazeGenerator.wallPrefab.layer;
-            Debug.Log($"TowerPlacementManager: Using wall prefab layer '{LayerMask.LayerToName(towerLayer)}' for towers.");
+            towerLayer = wallPrefab.layer;
         }
 
+        ConfigurePlacementBlockMask();
         CreatePreview();
+    }
+
+    GameObject GetWallPrefab()
+    {
+        if (simpleMazeGenerator != null && simpleMazeGenerator.wallPrefab != null)
+            return simpleMazeGenerator.wallPrefab;
+        if (mazeGenerator != null && mazeGenerator.wallPrefab != null)
+            return mazeGenerator.wallPrefab;
+        return null;
+    }
+
+    float GetCellSize()
+    {
+        if (simpleMazeGenerator != null) return simpleMazeGenerator.cellSize;
+        if (mazeGenerator != null) return mazeGenerator.cellSize;
+        return 1f;
+    }
+
+    Vector2 GetGridOffset()
+    {
+        if (simpleMazeGenerator != null) return simpleMazeGenerator.gridOffset;
+        if (mazeGenerator != null) return new Vector2(mazeGenerator.mazeOffset.x, mazeGenerator.mazeOffset.z);
+        return Vector2.zero;
+    }
+
+    void ConfigurePlacementBlockMask()
+    {
+        int ignoreMask = 0;
+        foreach (string layerName in layersToIgnore)
+        {
+            int layer = LayerMask.NameToLayer(layerName);
+            if (layer != -1)
+            {
+                ignoreMask |= (1 << layer);
+            }
+        }
+        
+        GameObject wallPrefab = GetWallPrefab();
+        if (wallPrefab != null)
+        {
+            int wallLayer = wallPrefab.layer;
+            placementBlockMask = (1 << wallLayer);
+            
+            if (towerLayer != 0 && towerLayer != wallLayer)
+            {
+                placementBlockMask |= (1 << towerLayer);
+            }
+        }
+        else
+        {
+            placementBlockMask = ~ignoreMask;
+        }
     }
 
     void Update()
@@ -92,40 +140,10 @@ public class TowerPlacementManager : MonoBehaviour
         
         if (cam.orthographic)
         {
-            // For orthographic camera at (0, 0, -10) looking along +Z
-            // The camera views the XY plane, but game uses XZ plane
-            // Use viewport coordinates and manual calculation to ensure both axes work
-            
             Vector3 mouseScreenPos = Input.mousePosition;
-            Vector3 viewportPos = cam.ScreenToViewportPoint(mouseScreenPos);
-            
-            // Get camera info
-            Transform camTransform = cam.transform;
-            Vector3 camPos = camTransform.position;
-            float orthoSize = cam.orthographicSize;
-            float aspect = cam.aspect;
-            
-            // Calculate world position using viewport coordinates
-            // Viewport (0,0) is bottom-left, (1,1) is top-right
-            // For camera looking along +Z: screen X maps to world X, screen Y maps to world Z
-            float viewportX = (viewportPos.x - 0.5f) * 2f; // -1 to 1
-            float viewportY = (viewportPos.y - 0.5f) * 2f; // -1 to 1
-            
-            // Calculate world coordinates
-            // Screen X → World X (via camera right, which is +X for camera at origin)
-            // Screen Y → World Z (direct mapping since camera Y axis = game Z axis)
-            float worldX = camPos.x + viewportX * orthoSize * aspect;
-            float worldZ = camPos.z + viewportY * orthoSize; // Camera Z is -10, but we want to map screen Y to world Z
-            
-            // Actually, camera is at (0,0,-10), so camPos.z = -10
-            // But we want screen center (0.5, 0.5) to map to world (0, 0, 0)
-            // So: worldX = 0 + viewportX * orthoSize * aspect
-            //     worldZ = 0 + viewportY * orthoSize (not camPos.z!)
-            worldX = viewportX * orthoSize * aspect;
-            worldZ = viewportY * orthoSize;
-            
-            mouseWorld = new Vector3(worldX, 0f, worldZ);
-            
+            mouseScreenPos.z = Mathf.Abs(cam.transform.position.z);
+            mouseWorld = cam.ScreenToWorldPoint(mouseScreenPos);
+            mouseWorld.z = 0f;
             gotValidPosition = true;
         }
         else
@@ -144,39 +162,31 @@ public class TowerPlacementManager : MonoBehaviour
         
         if (gotValidPosition)
         {
-            Vector3 snapped = SnapToNavMesh(mouseWorld);
+            Vector3 gridPos = SnapToGrid(mouseWorld);
             
             if (previewInstance != null)
             {
-                // Always show preview when we have a valid position
                 if (!previewInstance.activeSelf)
                 {
                     previewInstance.SetActive(true);
-                    Debug.Log($"Preview activated at position {snapped} (mouseWorld: {mouseWorld})");
                 }
                 
-                previewInstance.transform.position = new Vector3(snapped.x, snapped.z, 2f);
-                previewInstance.transform.rotation = Quaternion.Euler(90, 0, 0); // Ensure correct rotation
+                previewInstance.transform.position = new Vector3(gridPos.x, gridPos.y, 0f);
+                previewInstance.transform.rotation = Quaternion.identity;
                 
-                bool valid = IsValidPlacement(snapped);
+                bool valid = IsValidPlacement(gridPos);
                 SetPreviewColor(valid ? validColor : invalidColor);
             }
             else
             {
-                Debug.LogWarning("Preview instance is null! Creating new one...");
                 CreatePreview();
             }
 
             if (Input.GetMouseButtonDown(0))
             {
-                Vector3 placementPos = SnapToNavMesh(mouseWorld);
-                if (IsValidPlacement(placementPos))
+                if (IsValidPlacement(gridPos))
                 {
-                    PlaceTower(previewInstance.transform.position);
-                }
-                else
-                {
-                    Debug.Log($"Cannot place tower at {placementPos} - invalid position");
+                    PlaceTower(gridPos);
                 }
             }
         }
@@ -230,16 +240,12 @@ public class TowerPlacementManager : MonoBehaviour
         previewInstance.name = "TowerPreview";
         // Start hidden and positioned far away until we have a valid mouse position
         previewInstance.SetActive(false);
-        previewInstance.transform.position = new Vector3(0, -1000, 0); // Hide far below ground
-        previewInstance.transform.localScale = Vector3.one; // Ensure scale is correct
-        previewInstance.transform.rotation = Quaternion.Euler(90, 0, 0); // Ensure correct rotation for XZ plane
-        // Disable colliders so preview doesn't interfere
+        previewInstance.transform.position = new Vector3(0, -1000, 0);
+        previewInstance.transform.localScale = Vector3.one;
+        previewInstance.transform.rotation = Quaternion.identity;
         foreach (Collider c in previewInstance.GetComponentsInChildren<Collider>()) c.enabled = false;
-        // Remove NavMeshObstacle from preview if it has one
-        NavMeshObstacle previewObs = previewInstance.GetComponent<NavMeshObstacle>();
-        if (previewObs != null) DestroyImmediate(previewObs);
+        foreach (Collider2D c in previewInstance.GetComponentsInChildren<Collider2D>()) c.enabled = false;
         
-        // Ensure sprite renderers are visible and on correct sorting layer
         foreach (SpriteRenderer sr in previewInstance.GetComponentsInChildren<SpriteRenderer>())
         {
             sr.sortingOrder = 100; // High sorting order to ensure visibility
@@ -266,184 +272,117 @@ public class TowerPlacementManager : MonoBehaviour
         CreatePreview();
     }
 
-    Vector3 SnapToNavMesh(Vector3 world)
+    Vector3 SnapToGrid(Vector3 world)
     {
-        // First snap to grid
-        float size = mazeGenerator != null ? mazeGenerator.cellSize : 1f;
-        Vector3 off = mazeGenerator != null ? mazeGenerator.mazeOffset : Vector3.zero;
+        float size = GetCellSize();
+        Vector2 off = GetGridOffset();
         int gx = Mathf.RoundToInt((world.x - off.x) / size);
-        int gz = Mathf.RoundToInt((world.z - off.z) / size);
-        Vector3 gridPos = new Vector3(gx * size + off.x, 0f, gz * size + off.z);
-        
-        // Then snap to nearest NavMesh position
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(gridPos, out hit, 2f, NavMesh.AllAreas))
-        {
-            return new Vector3(hit.position.x, 0f, hit.position.z);
-        }
-        
-        // If not on NavMesh, return grid position at Y=0
-        return new Vector3(gridPos.x, 0f, gridPos.z);
+        int gy = Mathf.RoundToInt((world.y - off.y) / size);
+        return new Vector3(gx * size + off.x, gy * size + off.y, 0f);
     }
 
     bool IsValidPlacement(Vector3 pos)
     {
-        // Reject if maze logical cell is a wall (fastest check first)
-        if (mazeGenerator != null && mazeGenerator.IsWall(pos))
+        Vector2 pos2D = new Vector2(pos.x, pos.y);
+        
+        if (simpleMazeGenerator != null && simpleMazeGenerator.IsWall(pos2D))
         {
             return false;
         }
         
-        // Check if position is on NavMesh (try with reasonable radius)
-        NavMeshHit hit;
-        bool onNavMesh = NavMesh.SamplePosition(pos, out hit, 5f, NavMesh.AllAreas);
+        float cell = GetCellSize();
+        float radius2D = Mathf.Max(0.1f, cell * placementRadiusMultiplier);
         
-        // If not on NavMesh, still allow if it's a valid grid position (not a wall)
-        // This handles cases where NavMesh might not cover the entire area
-        if (!onNavMesh)
-        {
-            // Allow placement if it's a valid grid cell (not a wall)
-            // This is more permissive - allows placement on any non-wall grid cell
-            // But still check for collisions
-        }
-        
-        // Reject if colliding with any blocking collider (walls, other towers, etc.)
-        float cell = mazeGenerator != null ? mazeGenerator.cellSize : 1f;
-        float radius = Mathf.Max(0.05f, cell * placementRadiusMultiplier);
-        
-        // Exclude preview from collision check
-        Collider[] hits = Physics.OverlapSphere(pos, radius, placementBlockMask);
-        
-        // Filter out preview colliders (should already be disabled, but just in case)
-        List<Collider> validHits = new List<Collider>();
-        foreach (Collider c in hits)
+        Collider2D[] hits2D = Physics2D.OverlapCircleAll(pos2D, radius2D, placementBlockMask);
+        foreach (Collider2D c in hits2D)
         {
             if (c != null && !c.name.Contains("Preview") && c.gameObject != previewInstance)
             {
-                // Also check if this collider is a wall/amp
-                if (c.name.Contains("Wall") || c.name.Contains("Amp") || c.name.Contains("amp"))
-                {
-                    validHits.Add(c); // Walls should block placement
-                }
-                else
-                {
-                    validHits.Add(c); // Other obstacles also block
-                }
+                return false;
             }
         }
-        hits = validHits.ToArray();
         
-        // Also check for NavMeshObstacles at this position
-        foreach (Collider col in hits)
+        Vector3 pos3D = new Vector3(pos.x, pos.y, 0f);
+        Collider[] hits3D = Physics.OverlapBox(pos3D, new Vector3(cell * 0.3f, cell * 0.3f, 0.5f), Quaternion.identity, placementBlockMask);
+        foreach (Collider c in hits3D)
         {
-            if (col != null && col.GetComponent<NavMeshObstacle>() != null)
+            if (c != null && !c.name.Contains("Preview") && c.gameObject != previewInstance)
             {
-                return false; // There's already an obstacle here
+                if (c.name.Contains("Amp") || c.name.Contains("Wall") || c.name.Contains("Tower") || c.name.Contains("Guitar"))
+                {
+                    return false;
+                }
             }
         }
         
-        return hits.Length == 0;
+        return true;
     }
 
     void PlaceTower(Vector3 pos)
     {
-        // Ensure position is on NavMesh
-        NavMeshHit hit;
-        Vector3 finalPos = pos;
-        if (NavMesh.SamplePosition(pos, out hit, 2f, NavMesh.AllAreas))
-        {
-            finalPos = new Vector3(hit.position.x, hit.position.y,hit.position.z);
-        }
-        else
-        {
-            Debug.LogWarning($"Tower placement position {pos} is not on NavMesh! Placing anyway at Y=0.");
-            finalPos = new Vector3(pos.x, 0f, pos.z);
-        }
+        Vector3 finalPos = new Vector3(pos.x, pos.y, 0f);
         
-        GameObject tower = Instantiate(towerPrefabs[selectedTowerIndex], finalPos, Quaternion.Euler(90, 0, 0));
+        GameObject towerRoot = new GameObject($"Tower_{Time.time}");
+        towerRoot.transform.position = finalPos;
+        
         if (towerLayer != 0)
         {
-            tower.layer = towerLayer;
+            towerRoot.layer = towerLayer;
         }
-
-        // Ensure the tower has a 3D collider
-        Collider collider = tower.GetComponent<Collider>();
-        float cell = mazeGenerator != null ? mazeGenerator.cellSize : 1f;
-        if (collider == null)
+        
+        GameObject towerVisual = Instantiate(towerPrefabs[selectedTowerIndex], finalPos, Quaternion.identity);
+        towerVisual.name = "Visual";
+        towerVisual.transform.SetParent(towerRoot.transform);
+        towerVisual.transform.localPosition = Vector3.zero;
+        
+        Swing swing = towerVisual.GetComponent<Swing>();
+        if (swing != null)
         {
-            SpriteRenderer sr = tower.GetComponentInChildren<SpriteRenderer>();
-            BoxCollider box = tower.AddComponent<BoxCollider>();
-            Vector3 size = sr != null && sr.sprite != null ? sr.sprite.bounds.size : new Vector3(cell, 0.5f, cell);
-            size.x = Mathf.Max(size.x, cell * 0.9f);
-            size.y = 0.5f;
-            size.z = Mathf.Max(size.z, cell * 0.9f);
-            box.size = size;
-            box.center = Vector3.zero;
+            Destroy(swing);
         }
-        else if (collider is BoxCollider existing)
+        
+        foreach (SpriteRenderer sr in towerVisual.GetComponentsInChildren<SpriteRenderer>())
         {
-            Vector3 size = existing.size;
-            size.x = Mathf.Max(size.x, cell * 0.9f);
-            size.z = Mathf.Max(size.z, cell * 0.9f);
-            existing.size = size;
+            sr.sortingOrder = 10;
         }
-
-        // Add NavMeshObstacle so tower blocks pathfinding
-        NavMeshObstacle obstacle = tower.GetComponent<NavMeshObstacle>();
-        if (obstacle == null)
+        
+        Collider existingCollider3D = towerVisual.GetComponent<Collider>();
+        if (existingCollider3D != null)
         {
-            obstacle = tower.AddComponent<NavMeshObstacle>();
+            existingCollider3D.enabled = false;
         }
+        
+        NavMeshObstacle visualObstacle = towerVisual.GetComponent<NavMeshObstacle>();
+        if (visualObstacle != null)
+        {
+            Destroy(visualObstacle);
+        }
+        
+        float cell = GetCellSize();
+        
+        BoxCollider2D box2D = towerRoot.AddComponent<BoxCollider2D>();
+        box2D.size = new Vector2(1.5f, 4f);
+        
+        NavMeshObstacle obstacle = towerRoot.AddComponent<NavMeshObstacle>();
         obstacle.carving = true;
+        obstacle.carveOnlyStationary = false;
         obstacle.shape = NavMeshObstacleShape.Box;
-        obstacle.size = new Vector3(cell, 0.5f, cell);
+        obstacle.size = new Vector3(2f, 4f, 10f);
         obstacle.center = Vector3.zero;
         obstacle.enabled = true;
         
-        Debug.Log($"Placed tower at {finalPos} with NavMeshObstacle (carving: {obstacle.carving})");
+        Debug.Log($"Placed tower at {finalPos}");
         
-        if (pathfinder != null)
-        {
-            StartCoroutine(RecalculatePathWithValidation(tower));
-        }
+        StartCoroutine(RegeneratePathAfterPlacement(towerRoot));
     }
-
-    System.Collections.IEnumerator RecalculatePathWithValidation(GameObject placedTower)
+    
+    System.Collections.IEnumerator RegeneratePathAfterPlacement(GameObject placedTower)
     {
-        // Wait for NavMeshObstacle to register and carve the NavMesh
-        yield return new WaitForFixedUpdate();
-        yield return null; // One more frame for obstacle carving to take effect
-        yield return new WaitForSeconds(0.1f); // Give NavMeshObstacle more time to carve
+        yield return new WaitForSeconds(0.5f);
         
         if (pathfinder != null)
         {
-            // Verify obstacle is set up correctly
-            NavMeshObstacle obstacle = placedTower != null ? placedTower.GetComponent<NavMeshObstacle>() : null;
-            if (obstacle != null)
-            {
-                Debug.Log($"Tower obstacle carving: {obstacle.carving}, enabled: {obstacle.enabled}, size: {obstacle.size}");
-            }
-            
-            // NavMeshObstacle carving works at runtime, no rebake needed
             pathfinder.RegeneratePath();
-            yield return null;
-
-            // Check if path is still valid after placing tower
-            if (!pathfinder.HasValidPath())
-            {
-                Debug.LogWarning("Tower placement blocks all paths! Removing tower.");
-                if (placedTower != null)
-                {
-                    DestroyImmediate(placedTower);
-                }
-                // Regenerate path without the tower
-                yield return new WaitForFixedUpdate();
-                pathfinder.RegeneratePath();
-            }
-            else
-            {
-                Debug.Log("Path successfully updated to avoid tower obstacle.");
-            }
         }
     }
 

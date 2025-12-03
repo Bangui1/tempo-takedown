@@ -27,16 +27,19 @@ public class NavMeshGroundCreator : MonoBehaviour
             return;
         }
         
-        // Create ground plane
         GameObject ground = GameObject.CreatePrimitive(PrimitiveType.Plane);
         ground.name = "NavMeshGround";
         ground.transform.position = new Vector3(0, groundHeight, 0);
         ground.transform.localScale = new Vector3(groundSize / 10f, 1, groundSize / 10f);
         
-        // Ensure it has a collider (should have by default)
-        if (ground.GetComponent<Collider>() == null)
+        int groundLayer = LayerMask.NameToLayer("Ground");
+        if (groundLayer == -1)
         {
-            ground.AddComponent<BoxCollider>();
+            groundLayer = LayerMask.NameToLayer("Ignore Raycast");
+        }
+        if (groundLayer != -1)
+        {
+            ground.layer = groundLayer;
         }
         
         // Mark as Navigation Static (if possible)
