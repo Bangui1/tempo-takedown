@@ -55,8 +55,6 @@ public class NavMeshPathfinder : MonoBehaviour
         
         ClearPath();
         
-        System.Array.Sort(points, (a, b) => a.name.CompareTo(b.name));
-        
         List<Vector3> fullPath = new List<Vector3>();
         int successfulSegments = 0;
         
@@ -115,18 +113,47 @@ public class NavMeshPathfinder : MonoBehaviour
     
     GameObject[] FindAllPoints()
     {
-        List<GameObject> points = new List<GameObject>();
+        List<GameObject> allPoints = new List<GameObject>();
         GameObject[] allObjects = FindObjectsByType<GameObject>(FindObjectsSortMode.None);
         
         foreach (GameObject obj in allObjects)
         {
             if (obj.name.StartsWith("Point_"))
             {
-                points.Add(obj);
+                allPoints.Add(obj);
             }
         }
         
-        return points.ToArray();
+        GameObject start = null;
+        GameObject end = null;
+        List<(int num, GameObject go)> numbered = new List<(int, GameObject)>();
+        
+        foreach (GameObject p in allPoints)
+        {
+            if (p == null) continue;
+            
+            if (p.name.Equals("Point_START"))
+                start = p;
+            else if (p.name.Equals("Point_END"))
+                end = p;
+            else
+            {
+                string tag = p.name.Substring("Point_".Length);
+                if (int.TryParse(tag, out int n))
+                {
+                    numbered.Add((n, p));
+                }
+            }
+        }
+        
+        numbered.Sort((a, b) => a.num.CompareTo(b.num));
+        
+        List<GameObject> ordered = new List<GameObject>();
+        if (start != null) ordered.Add(start);
+        foreach (var tup in numbered) ordered.Add(tup.go);
+        if (end != null) ordered.Add(end);
+        
+        return ordered.ToArray();
     }
     
     void CreateVisualPath(List<Vector3> path)
@@ -186,6 +213,11 @@ public class NavMeshPathfinder : MonoBehaviour
     public bool HasValidPath()
     {
         return currentPath != null && currentPath.Count >= 2;
+    }
+    
+    public List<Vector3> GetPath()
+    {
+        return new List<Vector3>(currentPath);
     }
     
     public void RebakeNavMesh()

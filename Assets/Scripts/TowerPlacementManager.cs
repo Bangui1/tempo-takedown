@@ -383,6 +383,17 @@ public class TowerPlacementManager : MonoBehaviour
         if (pathfinder != null)
         {
             pathfinder.RegeneratePath();
+            
+            yield return null;
+            
+            EnemyWalker[] enemies = FindObjectsByType<EnemyWalker>(FindObjectsSortMode.None);
+            foreach (EnemyWalker enemy in enemies)
+            {
+                if (enemy != null && enemy.IsWalking)
+                {
+                    enemy.RefreshPath();
+                }
+            }
         }
     }
 
