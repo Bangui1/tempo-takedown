@@ -11,9 +11,14 @@ public class TowerPlacementManager : MonoBehaviour
 
     [Header("Towers")]
     public GameObject[] towerPrefabs;
+    public TowerStats[] towerStats; // Optional stats for each tower type
     public int selectedTowerIndex = 0;
     public int towerLayer = 0; // resolved at runtime if 0
     public string towerLayerName = "Tower";
+    
+    [Header("Combat")]
+    public GameObject defaultProjectilePrefab;
+    public LayerMask enemyLayer;
 
     [Header("Preview")]
     public Color validColor = new Color(0f, 1f, 0f, 0.6f);
@@ -371,7 +376,29 @@ public class TowerPlacementManager : MonoBehaviour
         obstacle.center = Vector3.zero;
         obstacle.enabled = true;
         
-        Debug.Log($"Placed tower at {finalPos}");
+        // Add TowerShooter component for combat
+        TowerShooter shooter = towerRoot.AddComponent<TowerShooter>();
+        shooter.visualTransform = towerVisual.transform;
+        shooter.firePoint = towerRoot.transform;
+        
+        // Assign stats if available
+        if (towerStats != null && selectedTowerIndex < towerStats.Length && towerStats[selectedTowerIndex] != null)
+        {
+            shooter.stats = towerStats[selectedTowerIndex];
+        }
+        else
+        {
+            // Use default values if no stats assigned
+            shooter.projectilePrefab = defaultProjectilePrefab;
+        }
+        
+        // Set enemy layer for targeting
+        if (enemyLayer != 0)
+        {
+            shooter.enemyLayer = enemyLayer;
+        }
+        
+        Debug.Log($"Placed tower at {finalPos} with shooter component");
         
         StartCoroutine(RegeneratePathAfterPlacement(towerRoot));
     }

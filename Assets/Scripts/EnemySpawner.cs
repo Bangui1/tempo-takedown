@@ -5,6 +5,7 @@ public class EnemySpawner : MonoBehaviour
     [Header("Enemy Settings")]
     public float moveSpeed = 3f;
     public float enemyScale = 2f;
+    public float enemyMaxHealth = 100f;
     public float spawnInterval = 5f;
     public bool autoSpawn = false;
     
@@ -78,8 +79,19 @@ public class EnemySpawner : MonoBehaviour
         SpriteRenderer sr = enemy.AddComponent<SpriteRenderer>();
         sr.sortingOrder = 20;
         
+        // Add Rigidbody2D (required for trigger collisions to work)
+        Rigidbody2D enemyRb = enemy.AddComponent<Rigidbody2D>();
+        enemyRb.isKinematic = true; // Kinematic so it's not affected by physics
+        enemyRb.gravityScale = 0f;
+        
+        // Add collider so projectiles can detect the enemy
+        CircleCollider2D enemyCollider = enemy.AddComponent<CircleCollider2D>();
+        enemyCollider.radius = 0.5f;
+        enemyCollider.isTrigger = true; // Trigger so projectiles can hit it
+        
         EnemyWalker walker = enemy.AddComponent<EnemyWalker>();
         walker.moveSpeed = moveSpeed;
+        walker.maxHealth = enemyMaxHealth;
         walker.pathfinder = pathfinder;
         
         walker.walkNorth = walkNorth;

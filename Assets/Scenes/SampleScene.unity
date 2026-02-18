@@ -925,8 +925,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 3
   enemyScale: 10
+  enemyMaxHealth: 100
   spawnInterval: 5
-  autoSpawn: 0
+  autoSpawn: 1
   walkNorth:
   - {fileID: -1808982527863717971, guid: a767348263fd749b6a776880117097b5, type: 3}
   - {fileID: 8115644005664255767, guid: dfd1c34bdff064645b226608864047a5, type: 3}
@@ -62271,9 +62272,14 @@ MonoBehaviour:
   pathfinder: {fileID: 0}
   towerPrefabs:
   - {fileID: 1057550761753372823, guid: 58cbbd00796ef4844b0a8d80efa5efb2, type: 3}
+  towerStats: []
   selectedTowerIndex: 0
   towerLayer: 0
   towerLayerName: Tower
+  defaultProjectilePrefab: {fileID: 2563425719766729476, guid: ea5508c41545d4a94b0362f214d5fc40, type: 3}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
   validColor: {r: 0, g: 1, b: 0, a: 0.6}
   invalidColor: {r: 1, g: 0, b: 0, a: 0.6}
   placementBlockMask:

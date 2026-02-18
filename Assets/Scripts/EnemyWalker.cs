@@ -3,6 +3,14 @@ using System.Collections.Generic;
 
 public class EnemyWalker : MonoBehaviour
 {
+    [Header("Health")]
+    public float maxHealth = 100f;
+    private float currentHealth;
+    public bool isDead = false;
+    public float fadeOutDuration = 0.5f;
+    private bool isFadingOut = false;
+    private float fadeTimer = 0f;
+    
     [Header("Movement")]
     public float moveSpeed = 3f;
     public float waypointReachDistance = 0.1f;
@@ -31,6 +39,8 @@ public class EnemyWalker : MonoBehaviour
     
     void Start()
     {
+        currentHealth = maxHealth;
+        
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer == null)
         {
@@ -109,6 +119,12 @@ public class EnemyWalker : MonoBehaviour
     
     void Update()
     {
+        if (isFadingOut)
+        {
+            HandleFadeOut();
+            return;
+        }
+        
         if (!isWalking || path == null || path.Count == 0) return;
         
         if (currentWaypointIndex >= path.Count)
@@ -189,7 +205,53 @@ public class EnemyWalker : MonoBehaviour
         Debug.Log("Enemy reached the end!");
     }
     
+    public void TakeDamage(float damage)
+    {
+        if (isDead) return;
+        
+        currentHealth -= damage;
+        Debug.Log($"Enemy took {damage} damage. Health: {currentHealth}/{maxHealth}");
+        
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+    
+    void Die()
+    {
+        if (isDead) return;
+        
+        isDead = true;
+        isWalking = false;
+        isFadingOut = true;
+        fadeTimer = 0f;
+        
+        Debug.Log("Enemy died!");
+    }
+    
+    void HandleFadeOut()
+    {
+        fadeTimer += Time.deltaTime;
+        float alpha = 1f - (fadeTimer / fadeOutDuration);
+        
+        if (spriteRenderer != null)
+        {
+            Color color = spriteRenderer.color;
+            color.a = Mathf.Clamp01(alpha);
+            spriteRenderer.color = color;
+        }
+        
+        if (fadeTimer >= fadeOutDuration)
+        {
+            Destroy(gameObject);
+        }
+    }
+    
     public bool IsWalking => isWalking;
+    public bool IsDead => isDead;
+    public float CurrentHealth => currentHealth;
+    public float MaxHealth => maxHealth;
     public int CurrentWaypoint => currentWaypointIndex;
     public int TotalWaypoints => path?.Count ?? 0;
 }
