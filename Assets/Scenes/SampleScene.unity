@@ -923,6 +923,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d013007dd4344851a90aefc1347a3bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyTypes:
+  - {fileID: 11400000, guid: e8959dd89ed44c19ba2171b5123c67e3, type: 2}
+  - {fileID: 11400000, guid: 6e6c5401f8884b889b8f592ee61706ef, type: 2}
+  - {fileID: 11400000, guid: b0be1ad287e0483c9cf8ef63e33583f0, type: 2}
+  spawnMode: 0
   moveSpeed: 3
   enemyScale: 10
   enemyMaxHealth: 100
@@ -62272,6 +62277,8 @@ MonoBehaviour:
   pathfinder: {fileID: 0}
   towerPrefabs:
   - {fileID: 1057550761753372823, guid: 58cbbd00796ef4844b0a8d80efa5efb2, type: 3}
+  - {fileID: 6937920269117893105, guid: b667584f189e489ddb6d726f427e269f, type: 3}
+  - {fileID: 2789144625663822232, guid: aaf304483d9f69b80b4abc3c11de5795, type: 3}
   towerStats: []
   selectedTowerIndex: 0
   towerLayer: 0

@@ -2,14 +2,22 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [Header("Enemy Settings")]
+    public enum SpawnMode { Random, Sequential }
+
+    [Header("Enemy Types")]
+    public EnemyStats[] enemyTypes;
+    public SpawnMode spawnMode = SpawnMode.Random;
+
+    [Header("Fallback Enemy Settings")]
     public float moveSpeed = 3f;
     public float enemyScale = 2f;
     public float enemyMaxHealth = 100f;
+
+    [Header("Spawn Settings")]
     public float spawnInterval = 5f;
     public bool autoSpawn = false;
     
-    [Header("Walk Animation Sprites")]
+    [Header("Fallback Walk Animation Sprites")]
     public Sprite[] walkNorth;
     public Sprite[] walkNorthEast;
     public Sprite[] walkEast;
@@ -23,6 +31,7 @@ public class EnemySpawner : MonoBehaviour
     public NavMeshPathfinder pathfinder;
     
     private float spawnTimer = 0f;
+    private int sequentialIndex = 0;
     
     void Start()
     {
@@ -50,6 +59,22 @@ public class EnemySpawner : MonoBehaviour
         }
     }
     
+    EnemyStats PickEnemyType()
+    {
+        if (enemyTypes == null || enemyTypes.Length == 0) return null;
+        
+        if (spawnMode == SpawnMode.Random)
+        {
+            return enemyTypes[Random.Range(0, enemyTypes.Length)];
+        }
+        else
+        {
+            EnemyStats picked = enemyTypes[sequentialIndex % enemyTypes.Length];
+            sequentialIndex++;
+            return picked;
+        }
+    }
+    
     [ContextMenu("Spawn Enemy")]
     public void SpawnEnemy()
     {
@@ -72,6 +97,50 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
         
+        EnemyStats picked = PickEnemyType();
+        
+        if (picked != null)
+        {
+            SpawnEnemyOfType(picked, path);
+        }
+        else
+        {
+            SpawnFallbackEnemy(path);
+        }
+    }
+    
+    void SpawnEnemyOfType(EnemyStats stats, System.Collections.Generic.List<Vector3> path)
+    {
+        GameObject enemy = new GameObject("Enemy_" + stats.enemyName + "_" + Time.time);
+        enemy.transform.position = new Vector3(path[0].x, path[0].y, 0f);
+        
+        SpriteRenderer sr = enemy.AddComponent<SpriteRenderer>();
+        sr.sortingOrder = 20;
+        
+        Rigidbody2D enemyRb = enemy.AddComponent<Rigidbody2D>();
+        enemyRb.isKinematic = true;
+        enemyRb.gravityScale = 0f;
+        
+        CircleCollider2D enemyCollider = enemy.AddComponent<CircleCollider2D>();
+        enemyCollider.radius = 0.5f;
+        enemyCollider.isTrigger = true;
+        
+        EnemyWalker walker = enemy.AddComponent<EnemyWalker>();
+        walker.pathfinder = pathfinder;
+        walker.ApplyStats(stats);
+        
+        if (stats.walkSouth != null && stats.walkSouth.Length > 0)
+        {
+            sr.sprite = stats.walkSouth[0];
+        }
+        sr.color = stats.tintColor;
+        
+        walker.StartWalking();
+        Debug.Log($"Spawned {stats.enemyName} at {enemy.transform.position}");
+    }
+    
+    void SpawnFallbackEnemy(System.Collections.Generic.List<Vector3> path)
+    {
         GameObject enemy = new GameObject("Enemy_" + Time.time);
         enemy.transform.position = new Vector3(path[0].x, path[0].y, 0f);
         enemy.transform.localScale = Vector3.one * enemyScale;
@@ -79,15 +148,13 @@ public class EnemySpawner : MonoBehaviour
         SpriteRenderer sr = enemy.AddComponent<SpriteRenderer>();
         sr.sortingOrder = 20;
         
-        // Add Rigidbody2D (required for trigger collisions to work)
         Rigidbody2D enemyRb = enemy.AddComponent<Rigidbody2D>();
-        enemyRb.isKinematic = true; // Kinematic so it's not affected by physics
+        enemyRb.isKinematic = true;
         enemyRb.gravityScale = 0f;
         
-        // Add collider so projectiles can detect the enemy
         CircleCollider2D enemyCollider = enemy.AddComponent<CircleCollider2D>();
         enemyCollider.radius = 0.5f;
-        enemyCollider.isTrigger = true; // Trigger so projectiles can hit it
+        enemyCollider.isTrigger = true;
         
         EnemyWalker walker = enemy.AddComponent<EnemyWalker>();
         walker.moveSpeed = moveSpeed;
@@ -109,8 +176,6 @@ public class EnemySpawner : MonoBehaviour
         }
         
         walker.StartWalking();
-        
-        Debug.Log($"Spawned enemy at {enemy.transform.position}");
+        Debug.Log($"Spawned fallback enemy at {enemy.transform.position}");
     }
 }
-

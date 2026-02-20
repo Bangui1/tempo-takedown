@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46017ee28484431ca1cb5a11a36272c8, type: 3}
+  m_Name: SleepyKid
+  m_EditorClassIdentifier: 
+  enemyName: Sleepy Kid
+  maxHealth: 250
+  moveSpeed: 1.5
+  scale: 12
+  tintColor: {r: 0.5, g: 0.5, b: 1, a: 1}
+  walkNorth:
+  - {fileID: -1808982527863717971, guid: 8bc6c975ea4424594b9ad2b9d700464e, type: 3}
+  - {fileID: 8115644005664255767, guid: d5ed00fc86e3f432a81f2c73fdfe5236, type: 3}
+  - {fileID: -1974267942269126528, guid: ca475bfcc592740f39c303fc836b3136, type: 3}
+  - {fileID: 2536910936557558875, guid: e86bb781ca4d643ffb54232085885439, type: 3}
+  - {fileID: 1399413676680894907, guid: 9476e30b31e0546aa9fedd1620fce7bf, type: 3}
+  - {fileID: 6636361135747025162, guid: acffd0fd034fe415d8cec70f93c9da3f, type: 3}
+  - {fileID: -3229540774608315921, guid: 84e59c920961d407ab245383d8ba888f, type: 3}
+  - {fileID: -8556153337439913670, guid: 4b71204c88a9b486d81aa4f8194b47a7, type: 3}
+  walkNorthEast:
+  - {fileID: -1808982527863717971, guid: 28e3d6a822fe94bdca06496a33a4846b, type: 3}
+  - {fileID: 8115644005664255767, guid: b5b555ba8e67c4005a9522a87840548d, type: 3}
+  - {fileID: -1974267942269126528, guid: 6f28181b9a57d4ec1abe741e71f8dec4, type: 3}
+  - {fileID: 2536910936557558875, guid: 76c766f3829704dada5973e085822995, type: 3}
+  - {fileID: 1399413676680894907, guid: 4c1eb9e035c434f12b3af6a429bd1590, type: 3}
+  - {fileID: 6636361135747025162, guid: fe237e34f694341adb7ce53451071bf2, type: 3}
+  - {fileID: -3229540774608315921, guid: 381ed1a70c2334ea7ad0af9a2ba43e20, type: 3}
+  - {fileID: -8556153337439913670, guid: 415b246bcdb36461aa3de7c75143e62f, type: 3}
+  walkEast:
+  - {fileID: -1808982527863717971, guid: a7c3ee84763034856bbb6e29cb9aa790, type: 3}
+  - {fileID: 8115644005664255767, guid: 1932779e5e9094635adebeafd92e6e57, type: 3}
+  - {fileID: -1974267942269126528, guid: 89bbcb0a49d15402e9338ede8f515f8c, type: 3}
+  - {fileID: 2536910936557558875, guid: 408570ff9009647988c2d094967ec669, type: 3}
+  - {fileID: 1399413676680894907, guid: 17d0907b97ce64c159531a389f6b9344, type: 3}
+  - {fileID: 6636361135747025162, guid: 1a098bae861374f0fb90edaa6a4deb21, type: 3}
+  - {fileID: -3229540774608315921, guid: 76b080d544c4b478a9b9ea16429b6602, type: 3}
+  - {fileID: -8556153337439913670, guid: 50a4844094dc94675a7c04b8f79cf8fc, type: 3}
+  walkSouthEast:
+  - {fileID: -1808982527863717971, guid: b45bb5a22a34c47f9803b07388857c34, type: 3}
+  - {fileID: 8115644005664255767, guid: e9ba971160105470892757092623bc38, type: 3}
+  - {fileID: -1974267942269126528, guid: 3a07260c307fe4ad2b95f3f8d7b59edc, type: 3}
+  - {fileID: 2536910936557558875, guid: 0e1623e2b6816415e9bf63bbe3b89edb, type: 3}
+  - {fileID: 1399413676680894907, guid: 9435b6cb101124057b56b5c71a1181f4, type: 3}
+  - {fileID: 6636361135747025162, guid: d59630459e9304255a885c9b817e15e3, type: 3}
+  - {fileID: -3229540774608315921, guid: edcc9753920cb4f84978bd321b600e48, type: 3}
+  - {fileID: -8556153337439913670, guid: 02068cfe8c9af4c54b0757c158cbc5ef, type: 3}
+  walkSouth:
+  - {fileID: -1808982527863717971, guid: c25e76de3397b48d6ad514fe248c9d1b, type: 3}
+  - {fileID: 8115644005664255767, guid: 2fdbc72ba7bbc485aa9699ec98fd64d1, type: 3}
+  - {fileID: -1974267942269126528, guid: 8198b265403574bbb9b00b88a2bba5e4, type: 3}
+  - {fileID: 2536910936557558875, guid: 339d03a8cea0a4463aaf593f4167b591, type: 3}
+  - {fileID: 1399413676680894907, guid: 79a6e38817d9c4f26a6e994e667fe5ef, type: 3}
+  - {fileID: 6636361135747025162, guid: 03780819631b5475488bd6789741ee19, type: 3}
+  - {fileID: -3229540774608315921, guid: 3cb240ccc7e0c44c483d9385103b2683, type: 3}
+  - {fileID: -8556153337439913670, guid: 22bb8d8861b084063b5c332dd0dc4189, type: 3}
+  walkSouthWest:
+  - {fileID: -1808982527863717971, guid: 88408f8b9f4ff4eeba5693e0744dc8e7, type: 3}
+  - {fileID: 8115644005664255767, guid: 41b413aae9aa54997bd83d69f52c4765, type: 3}
+  - {fileID: -1974267942269126528, guid: 3c970ce3717474a22bcb6870b3d158dd, type: 3}
+  - {fileID: 2536910936557558875, guid: cb583b43f36834bfea5460a8eca6ce47, type: 3}
+  - {fileID: 1399413676680894907, guid: 5e737f76eec324c02accf897a1f90415, type: 3}
+  - {fileID: 6636361135747025162, guid: c0acece9139a24decb038b20f05c0d8d, type: 3}
+  - {fileID: -3229540774608315921, guid: 129baf5181a0c4efd95337fbf7d65020, type: 3}
+  - {fileID: -8556153337439913670, guid: 21efddb8e3b3945ccad8325c7f07ba23, type: 3}
+  walkWest:
+  - {fileID: -1808982527863717971, guid: 1adf64e09fc2a4182a7f2d2bba714ddd, type: 3}
+  - {fileID: 8115644005664255767, guid: 9d5ba062809924c86af0bbf3b4797bbe, type: 3}
+  - {fileID: -1974267942269126528, guid: fb7c7f95d3851420f8d16120ab3e705f, type: 3}
+  - {fileID: 2536910936557558875, guid: eeacde2b49bb94617af93f60119d9539, type: 3}
+  - {fileID: 1399413676680894907, guid: e0b2433021ce94df08d6c6e84525f900, type: 3}
+  - {fileID: 6636361135747025162, guid: 196b356761ea94641885372892e7c8ba, type: 3}
+  - {fileID: -3229540774608315921, guid: 8ce17bc73f262420ea56328b4ce8318b, type: 3}
+  - {fileID: -8556153337439913670, guid: fad4c6d1e38594f89844f0e8ca6cc528, type: 3}
+  walkNorthWest:
+  - {fileID: -1808982527863717971, guid: 80a9a4cf3f8ad4501aabf1dd9d8f0a51, type: 3}
+  - {fileID: 8115644005664255767, guid: 3cbd527cc32334c83b7457cbb50c4c74, type: 3}
+  - {fileID: -1974267942269126528, guid: 2e565ef94e1e24378b4278ee0894d357, type: 3}
+  - {fileID: 2536910936557558875, guid: 42e9188e3ea6447c2b43c9be0f9b9024, type: 3}
+  - {fileID: 1399413676680894907, guid: d66bb3ce1e69346f582aeed516058394, type: 3}
+  - {fileID: 6636361135747025162, guid: 8db94da559f8842a1900ce4d0b3386cf, type: 3}
+  - {fileID: -3229540774608315921, guid: b20a11af060b94aad870fe59782df038, type: 3}
+  - {fileID: -8556153337439913670, guid: eae73f8c4949548fe80ac11b5092ac31, type: 3}

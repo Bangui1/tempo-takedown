@@ -11,6 +11,9 @@ public class EnemyWalker : MonoBehaviour
     private bool isFadingOut = false;
     private float fadeTimer = 0f;
     
+    [Header("Visual")]
+    public Color tintColor = Color.white;
+    
     [Header("Movement")]
     public float moveSpeed = 3f;
     public float waypointReachDistance = 0.1f;
@@ -47,6 +50,7 @@ public class EnemyWalker : MonoBehaviour
             spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
         }
         spriteRenderer.sortingOrder = 20;
+        spriteRenderer.color = tintColor;
         
         if (pathfinder == null)
         {
@@ -237,7 +241,7 @@ public class EnemyWalker : MonoBehaviour
         
         if (spriteRenderer != null)
         {
-            Color color = spriteRenderer.color;
+            Color color = tintColor;
             color.a = Mathf.Clamp01(alpha);
             spriteRenderer.color = color;
         }
@@ -246,6 +250,24 @@ public class EnemyWalker : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+    
+    public void ApplyStats(EnemyStats stats)
+    {
+        maxHealth = stats.maxHealth;
+        moveSpeed = stats.moveSpeed;
+        tintColor = stats.tintColor;
+        
+        transform.localScale = Vector3.one * stats.scale;
+        
+        if (stats.walkNorth != null && stats.walkNorth.Length > 0) walkNorth = stats.walkNorth;
+        if (stats.walkNorthEast != null && stats.walkNorthEast.Length > 0) walkNorthEast = stats.walkNorthEast;
+        if (stats.walkEast != null && stats.walkEast.Length > 0) walkEast = stats.walkEast;
+        if (stats.walkSouthEast != null && stats.walkSouthEast.Length > 0) walkSouthEast = stats.walkSouthEast;
+        if (stats.walkSouth != null && stats.walkSouth.Length > 0) walkSouth = stats.walkSouth;
+        if (stats.walkSouthWest != null && stats.walkSouthWest.Length > 0) walkSouthWest = stats.walkSouthWest;
+        if (stats.walkWest != null && stats.walkWest.Length > 0) walkWest = stats.walkWest;
+        if (stats.walkNorthWest != null && stats.walkNorthWest.Length > 0) walkNorthWest = stats.walkNorthWest;
     }
     
     public bool IsWalking => isWalking;
