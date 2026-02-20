@@ -17,17 +17,33 @@ public class TowerSelectionUI : MonoBehaviour
     public float buttonSpacing = 10f;
     public Color selectedColor = new Color(0.2f, 0.8f, 0.2f, 1f);
     public Color normalColor = new Color(0.3f, 0.3f, 0.3f, 1f);
+    public Color unaffordableColor = new Color(0.5f, 0.15f, 0.15f, 0.7f);
     public Color textColor = Color.white;
     
     private Button[] towerButtons;
+    private Text[] costLabels;
     private int currentSelectedIndex = -1;
     private bool buttonsCreated = false;
     private GameObject panelInstance;
 
     void Start()
     {
-        // Delay initialization to ensure TowerPlacementManager is ready
         Invoke(nameof(InitializeUI), 0.1f);
+    }
+
+    void OnEnable()
+    {
+        GameEconomy.OnPointsChanged += OnPointsChanged;
+    }
+
+    void OnDisable()
+    {
+        GameEconomy.OnPointsChanged -= OnPointsChanged;
+    }
+
+    void OnPointsChanged(int newTotal)
+    {
+        UpdateButtonAffordability();
     }
 
     void InitializeUI()
@@ -149,8 +165,8 @@ public class TowerSelectionUI : MonoBehaviour
             }
         }
 
-        // Create buttons array
         towerButtons = new Button[placementManager.towerPrefabs.Length];
+        costLabels = new Text[placementManager.towerPrefabs.Length];
 
         // Create buttons from top to bottom
         for (int i = 0; i < placementManager.towerPrefabs.Length; i++)
@@ -226,46 +242,68 @@ public class TowerSelectionUI : MonoBehaviour
                 colors.disabledColor = new Color(0.2f, 0.2f, 0.2f, 0.5f);
                 btn.colors = colors;
                 
-                // Add text label (showing key number at top)
+                Font defaultFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+                if (defaultFont == null)
+                {
+                    Font[] allFonts = Resources.FindObjectsOfTypeAll<Font>();
+                    if (allFonts != null && allFonts.Length > 0)
+                        defaultFont = allFonts[0];
+                }
+
+                // Key number label at top
                 GameObject textGO = new GameObject("Text");
                 textGO.transform.SetParent(buttonGO.transform, false);
                 
                 RectTransform textRT = textGO.AddComponent<RectTransform>();
-                textRT.anchorMin = new Vector2(0, 0.7f); // Top portion of button
+                textRT.anchorMin = new Vector2(0, 0.75f);
                 textRT.anchorMax = new Vector2(1, 1);
                 textRT.sizeDelta = Vector2.zero;
                 textRT.anchoredPosition = Vector2.zero;
                 
                 Text text = textGO.AddComponent<Text>();
                 text.text = $"[{i + 1}]";
-                // Try to get a valid font - use LegacyRuntime.ttf instead of deprecated Arial.ttf
-                Font defaultFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-                if (defaultFont == null)
-                {
-                    // Fallback: try to find any font in the project
-                    Font[] allFonts = Resources.FindObjectsOfTypeAll<Font>();
-                    if (allFonts != null && allFonts.Length > 0)
-                    {
-                        defaultFont = allFonts[0];
-                    }
-                }
-                if (defaultFont != null)
-                {
-                    text.font = defaultFont;
-                }
-                text.fontSize = 16;
+                if (defaultFont != null) text.font = defaultFont;
+                text.fontSize = 14;
                 text.alignment = TextAnchor.MiddleCenter;
                 text.color = textColor;
                 text.fontStyle = FontStyle.Bold;
                 text.resizeTextForBestFit = true;
-                text.resizeTextMinSize = 12;
-                text.resizeTextMaxSize = 18;
-                text.raycastTarget = false; // Don't block button clicks - critical!
+                text.resizeTextMinSize = 10;
+                text.resizeTextMaxSize = 16;
+                text.raycastTarget = false;
                 
-                // Add shadow/outline for better visibility
                 Shadow shadow = textGO.AddComponent<Shadow>();
                 shadow.effectColor = new Color(0, 0, 0, 0.8f);
                 shadow.effectDistance = new Vector2(1, -1);
+
+                // Cost label at bottom
+                int towerCost = placementManager.GetTowerCost(i);
+                GameObject costGO = new GameObject("CostText");
+                costGO.transform.SetParent(buttonGO.transform, false);
+
+                RectTransform costRT = costGO.AddComponent<RectTransform>();
+                costRT.anchorMin = new Vector2(0, 0);
+                costRT.anchorMax = new Vector2(1, 0.25f);
+                costRT.sizeDelta = Vector2.zero;
+                costRT.anchoredPosition = Vector2.zero;
+
+                Text costText = costGO.AddComponent<Text>();
+                costText.text = $"${towerCost}";
+                if (defaultFont != null) costText.font = defaultFont;
+                costText.fontSize = 14;
+                costText.alignment = TextAnchor.MiddleCenter;
+                costText.color = new Color(1f, 0.85f, 0.2f, 1f);
+                costText.fontStyle = FontStyle.Bold;
+                costText.resizeTextForBestFit = true;
+                costText.resizeTextMinSize = 10;
+                costText.resizeTextMaxSize = 16;
+                costText.raycastTarget = false;
+
+                Shadow costShadow = costGO.AddComponent<Shadow>();
+                costShadow.effectColor = new Color(0, 0, 0, 0.8f);
+                costShadow.effectDistance = new Vector2(1, -1);
+
+                costLabels[i] = costText;
             }
             
             // Ensure Button component exists
@@ -325,6 +363,7 @@ public class TowerSelectionUI : MonoBehaviour
         }
         
         buttonsCreated = true;
+        UpdateButtonAffordability();
         Debug.Log($"TowerSelectionUI: Successfully created {towerButtons.Length} tower buttons");
     }
 
@@ -375,12 +414,39 @@ public class TowerSelectionUI : MonoBehaviour
         placementManager.SetPlacementMode(true); // Enable placement mode
         placementManager.CreatePreview(); // Refresh preview
 
+        UpdateButtonAffordability();
         Debug.Log($"Selected tower: {placementManager.towerPrefabs[index].name} (index {index})");
+    }
+
+    void UpdateButtonAffordability()
+    {
+        if (towerButtons == null || placementManager == null) return;
+
+        for (int i = 0; i < towerButtons.Length; i++)
+        {
+            if (towerButtons[i] == null) continue;
+
+            int cost = placementManager.GetTowerCost(i);
+            bool canAfford = GameEconomy.Instance == null || GameEconomy.Instance.CanAfford(cost);
+
+            Image img = towerButtons[i].GetComponent<Image>();
+            if (img != null && i != currentSelectedIndex)
+            {
+                img.color = canAfford ? normalColor : unaffordableColor;
+            }
+
+            if (costLabels != null && i < costLabels.Length && costLabels[i] != null)
+            {
+                costLabels[i].color = canAfford
+                    ? new Color(1f, 0.85f, 0.2f, 1f)
+                    : new Color(1f, 0.3f, 0.3f, 0.8f);
+            }
+        }
     }
 
     void OnDestroy()
     {
-        // Clean up when destroyed
+        GameEconomy.OnPointsChanged -= OnPointsChanged;
         if (panelInstance != null && Application.isPlaying)
         {
             Destroy(panelInstance);

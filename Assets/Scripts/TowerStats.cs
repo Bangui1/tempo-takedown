@@ -6,6 +6,7 @@ public class TowerStats : ScriptableObject
     [Header("Tower Identification")]
     public string towerName = "Basic Tower";
     public GameObject towerPrefab;
+    public int cost = 50;
     
     [Header("Combat Stats")]
     [Tooltip("Damage dealt per projectile")]

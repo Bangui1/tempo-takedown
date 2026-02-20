@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 public class EnemyWalker : MonoBehaviour
 {
+    public static event System.Action<EnemyWalker> OnEnemyDied;
+    public static event System.Action<EnemyWalker> OnEnemyReachedEnd;
+
     [Header("Health")]
     public float maxHealth = 100f;
     private float currentHealth;
@@ -10,6 +13,9 @@ public class EnemyWalker : MonoBehaviour
     public float fadeOutDuration = 0.5f;
     private bool isFadingOut = false;
     private float fadeTimer = 0f;
+    
+    [Header("Reward")]
+    public int rewardPoints = 10;
     
     [Header("Visual")]
     public Color tintColor = Color.white;
@@ -206,7 +212,9 @@ public class EnemyWalker : MonoBehaviour
     void OnReachedEnd()
     {
         isWalking = false;
+        OnEnemyReachedEnd?.Invoke(this);
         Debug.Log("Enemy reached the end!");
+        Destroy(gameObject, 0.1f);
     }
     
     public void TakeDamage(float damage)
@@ -231,6 +239,7 @@ public class EnemyWalker : MonoBehaviour
         isFadingOut = true;
         fadeTimer = 0f;
         
+        OnEnemyDied?.Invoke(this);
         Debug.Log("Enemy died!");
     }
     
@@ -252,11 +261,12 @@ public class EnemyWalker : MonoBehaviour
         }
     }
     
-    public void ApplyStats(EnemyStats stats)
+    public void ApplyStats(EnemyStats stats, float healthMultiplier = 1f, float speedMultiplier = 1f)
     {
-        maxHealth = stats.maxHealth;
-        moveSpeed = stats.moveSpeed;
+        maxHealth = stats.maxHealth * healthMultiplier;
+        moveSpeed = stats.moveSpeed * speedMultiplier;
         tintColor = stats.tintColor;
+        rewardPoints = stats.rewardPoints;
         
         transform.localScale = Vector3.one * stats.scale;
         

@@ -10,6 +10,7 @@ public class EnemyStats : ScriptableObject
     public float maxHealth = 100f;
     public float moveSpeed = 3f;
     public float scale = 2f;
+    public int rewardPoints = 10;
 
     [Header("Visual")]
     public Color tintColor = Color.white;

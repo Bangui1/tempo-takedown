@@ -101,7 +101,7 @@ public class EnemySpawner : MonoBehaviour
         
         if (picked != null)
         {
-            SpawnEnemyOfType(picked, path);
+            SpawnEnemyOfType(picked, path, 1f, 1f);
         }
         else
         {
@@ -109,7 +109,28 @@ public class EnemySpawner : MonoBehaviour
         }
     }
     
-    void SpawnEnemyOfType(EnemyStats stats, System.Collections.Generic.List<Vector3> path)
+    /// Called by WaveManager to spawn a specific enemy type with wave-based stat scaling.
+    public EnemyWalker SpawnWaveEnemy(EnemyStats stats, float healthMultiplier = 1f, float speedMultiplier = 1f)
+    {
+        if (pathfinder == null)
+        {
+            Debug.LogError("No pathfinder assigned!");
+            return null;
+        }
+        if (!pathfinder.HasValidPath())
+        {
+            pathfinder.RegeneratePath();
+        }
+        var path = pathfinder.GetPath();
+        if (path == null || path.Count < 2)
+        {
+            Debug.LogError("No valid path for wave enemy!");
+            return null;
+        }
+        return SpawnEnemyOfType(stats, path, healthMultiplier, speedMultiplier);
+    }
+
+    EnemyWalker SpawnEnemyOfType(EnemyStats stats, System.Collections.Generic.List<Vector3> path, float healthMult = 1f, float speedMult = 1f)
     {
         GameObject enemy = new GameObject("Enemy_" + stats.enemyName + "_" + Time.time);
         enemy.transform.position = new Vector3(path[0].x, path[0].y, 0f);
@@ -127,7 +148,7 @@ public class EnemySpawner : MonoBehaviour
         
         EnemyWalker walker = enemy.AddComponent<EnemyWalker>();
         walker.pathfinder = pathfinder;
-        walker.ApplyStats(stats);
+        walker.ApplyStats(stats, healthMult, speedMult);
         
         if (stats.walkSouth != null && stats.walkSouth.Length > 0)
         {
@@ -136,7 +157,8 @@ public class EnemySpawner : MonoBehaviour
         sr.color = stats.tintColor;
         
         walker.StartWalking();
-        Debug.Log($"Spawned {stats.enemyName} at {enemy.transform.position}");
+        Debug.Log($"Spawned {stats.enemyName} (HP x{healthMult:F1}, Speed x{speedMult:F1}) at {enemy.transform.position}");
+        return walker;
     }
     
     void SpawnFallbackEnemy(System.Collections.Generic.List<Vector3> path)

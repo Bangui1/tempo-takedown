@@ -323,8 +323,27 @@ public class TowerPlacementManager : MonoBehaviour
         return true;
     }
 
+    public int GetTowerCost(int index)
+    {
+        if (towerStats != null && index < towerStats.Length && towerStats[index] != null)
+            return towerStats[index].cost;
+        return 50;
+    }
+
+    public int GetSelectedTowerCost()
+    {
+        return GetTowerCost(selectedTowerIndex);
+    }
+
     void PlaceTower(Vector3 pos)
     {
+        int cost = GetSelectedTowerCost();
+        if (GameEconomy.Instance != null && !GameEconomy.Instance.SpendPoints(cost))
+        {
+            Debug.LogWarning($"Not enough points! Need {cost}, have {GameEconomy.Instance.CurrentPoints}");
+            return;
+        }
+
         Vector3 finalPos = new Vector3(pos.x, pos.y, 0f);
         
         GameObject towerRoot = new GameObject($"Tower_{Time.time}");
